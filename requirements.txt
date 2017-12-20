@@ -1,0 +1,10 @@
+lxml
+numpy
+pandas
+pika
+python-dateutil
+python-jsonrpc
+requests
+sklearn
+tensorflow
+watchdog
