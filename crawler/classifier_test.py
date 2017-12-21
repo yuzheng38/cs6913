@@ -1,7 +1,7 @@
 import pyjsonrpc
 
 URL = 'http://localhost:6060/'
-text = 'Trump worst president in US history'
+text = 'some random text... this should be low.'
 
 
 test_client = pyjsonrpc.HttpClient(url=URL)
