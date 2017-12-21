@@ -10,8 +10,8 @@ import tensorflow as tf
 import time
 
 from tensorflow.contrib.learn.python.learn.estimators import model_fn
-# from watchdog.observers import Observer
-# from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
 # import the offline trained model
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'model_trainer'))
@@ -33,7 +33,7 @@ n_words = 0
 vocab_processor = None
 classifier = None
 
-# """ Restore the variables used in the trained model """
+""" Restore the variables used in the trained model """
 def restoreTrainedModelVars():
     with open(MODEL_NWORD_VARS, 'r') as f:
         # retrieve n_words from the trained model. save it as a global var
@@ -56,7 +56,7 @@ def restoreTrainedModel():
     # use the restored estimator to evaluate data, basically warm up. this is a missing feature in the version of tensorflow used.
     dataset = pd.read_csv('../data/training_data.csv', header=None)
     training_dataset = dataset[0:400]
-    x_train = training_dataset[1]
+    x_train = training_dataset[2]   # using 2nd column now
     x_train = np.array(list(vocab_processor.transform(x_train)))
     y_train = training_dataset[0]
     classifier.evaluate(x_train, y_train)
@@ -64,9 +64,25 @@ def restoreTrainedModel():
 # Restore
 restoreTrainedModelVars()
 restoreTrainedModel()
-print 'Trained model loaded'
+print 'Classifier trained model loaded'
 
+#############################################################
+""" Watchdog event handler to monitor model changes """
+class WatchDogEventHandler(FileSystemEventHandler):
+    def on_any_event(self, event):
+        print 'Change detected'
+        time.sleep(300)
+        restoreTrainedModelVars()
+        restoreTrainedModel()
 
+observer = Observer()
+handler = WatchDogEventHandler()
+observer.schedule(handler, path=MODEL_DIR, recursive=False)
+print 'Watchdog started'
+observer.start()
+##############################################################
+
+""" Classifier server RPC handler """
 class RequestHandler(pyjsonrpc.HttpRequestHandler):
     @pyjsonrpc.rpcmethod
     def classify(self, text):
@@ -77,7 +93,6 @@ class RequestHandler(pyjsonrpc.HttpRequestHandler):
         y = [p['relevance'] for p in classifier.predict(x, as_iterable=True)]
         print y[0]  # get the top prediction #test
         return y[0]
-
 
 # set up server and start server
 server = pyjsonrpc.ThreadingHttpServer(

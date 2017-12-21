@@ -32,7 +32,7 @@ POOLING_STRIDE = 2
 # 0.05 gave ~ 30 - 35% accuracy at 200 steps
 # 0.01 gave ~ 40 - ~70% accuracy at 200 steps
 LEARNING_RATE = 0.01
-STEPS = 200
+STEPS = 300
 
 def get_model_fn(n_classes, n_words):
     """
@@ -83,7 +83,7 @@ def get_model_fn(n_classes, n_words):
 
 
 def main(unused_argv):
-    # for testing 
+    # for testing
     if REMOVE_OLD_MODEL:
         # Remove old model
         shutil.rmtree(MODEL_DIR)
@@ -113,7 +113,7 @@ def main(unused_argv):
 
     # vocabulary_ is the only attribute of the Vocabulary Processor class, containing the vocabularies from preprocessing
     n_words = len(vocab_processor.vocabulary_)
-    # print('Total words: %d' % n_words) # test
+    print('Total words: %d' % n_words) # test
 
     # Save variables from vocab_processor.
     with open(MODEL_NWORD_VARS, 'w') as f:
