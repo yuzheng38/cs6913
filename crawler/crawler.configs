@@ -1,0 +1,7 @@
+[CrawlerConfigs]
+MimeTypeBlacklist:application, image, video, audio
+MimeSubtypeWhitelist:application/xhtml+xml
+MimeSubtypeBlacklist:text/css, text/javascript
+SuffixBlacklist:pdf, jpg, png, exe, rar, zip, svg, docx, pptx, pdf
+NumCrawlerSeeds:10
+NumWorkerThreads:10

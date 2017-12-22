@@ -3,8 +3,9 @@ numpy
 pandas
 pika
 python-dateutil
-python-jsonrpc
+pyjsonrpc
+redis
 requests
 sklearn
-tensorflow
+tensorflow==1.0.1
 watchdog
