@@ -7,8 +7,6 @@ from singleton import singleton
 class CrawlerPQueue(PriorityQueue):
     def __init__(self):
         self.pq = PriorityQueue(-1)
-        self.downloaded = {}
-        self._downloadCount = 0
 
     def qsize(self):
         return self.pq.qsize()
@@ -20,17 +18,11 @@ class CrawlerPQueue(PriorityQueue):
         return self.pq.full()
 
     def put(self, item):
-        if self.downloaded.has_key(item):
-            return
         self.pq.put(item)
-        self.downloaded[item] = 1   # dummy hack to dedup
-        self._downloadCount += 1
 
     def get(self):
         return self.pq.get()
 
-    def getDownloadCount(self):
-        return self._downloadCount
 
 # if __name__ == '__main__':
 #     testq = CrawlerPQueue()

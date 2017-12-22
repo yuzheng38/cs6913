@@ -23,7 +23,7 @@ class CloudAMQPClient:
                                    body=message);
         except Exception as e:
             raise e
-        print "[x] Sent message to %s: %s" % (self.queue_name, message)
+        print "[x] Sent message to %s" % (self.queue_name)
 
     def get_message(self):
         method_frame, header_frame, body = self.channel.basic_get(self.queue_name)
