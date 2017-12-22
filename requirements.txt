@@ -1,8 +1,6 @@
-lxml
 numpy
 pandas
 pika
-python-dateutil
 pyjsonrpc
 redis
 requests

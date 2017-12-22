@@ -22,29 +22,3 @@ class CrawlerPQueue(PriorityQueue):
 
     def get(self):
         return self.pq.get()
-
-
-# if __name__ == '__main__':
-#     testq = CrawlerPQueue()
-#
-#     testq.put((1, 'this should come out first'))
-#     testq.put((5, 'this should come out last'))
-#     testq.put((3, 'this should come out third'))
-#     testq.put((4, 'this should come out fourth'))
-#     testq.put((2, 'this should come out second'))
-#
-#     testq.put((3, 'this should come out third'))
-#     testq.put((4, 'this should come out fourth'))
-#     testq.put((2, 'this should come out second'))
-#     testq.put((1, 'this should come out first'))
-#     testq.put((5, 'this should come out last'))
-#
-#     print testq.qsize()
-#
-#     print testq.get()
-#     print testq.get()
-#     print testq.get()
-#     print testq.get()
-#     print testq.get()
-#
-#     print testq.getDownloadCount()

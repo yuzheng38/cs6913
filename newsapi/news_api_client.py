@@ -12,7 +12,9 @@ NEWS_API_ARTICLES_ENDPOINT = 'https://newsapi.org/v1/articles'
 NEWS_API_KEY = '538bed6d89214f48ac9808597bad6067'
 NEWS_SOURCES = [
                 'abc-news',
+                'bbc-news',
                 'cnn',
+                'fox-news',
                 'the-new-york-times',
                 'google-news',
                 'bloomberg',

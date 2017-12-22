@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import numpy as np
 import os
 import pandas as pd
@@ -36,7 +35,7 @@ STEPS = 300
 
 def get_model_fn(n_classes, n_words):
     """
-
+        Model function using 2 layers of cnn
     """
     def model_fn(features, target):
 

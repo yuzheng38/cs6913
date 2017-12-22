@@ -20,6 +20,7 @@ def download_news(msg):
     if msg is None:
         return
 
+    # start the crawler log capture
     crawlStats = CrawlerStats()
 
     url = msg['url']
@@ -41,6 +42,7 @@ def download_news(msg):
         crawlStats.add(msg['url'], msg['relevance'], msg['digest'], 0, 1, str(ioe))
     else:
 
+        # write the crawled page to file
         statusCode = res.getcode()
         filesize = len(content)
         with open(filename, 'w+') as f:
@@ -49,6 +51,10 @@ def download_news(msg):
         crawlStats.add(msg['url'], msg['relevance'], msg['digest'], filesize, statusCode, '')
         logging.info('Crawl. Url: %s' % (url))
 
+
+""" while loop that constantly listens at the message queue and retrieves next news to download
+    This module provides graceful shutdown.
+"""
 def main():
     amqp_download_client = CloudAMQPClient(AMQP_QUEUE_URL, AMQP_DOWNLOAD_QUEUE_NAME)
 
